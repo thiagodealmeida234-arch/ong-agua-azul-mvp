@@ -1,0 +1,22 @@
+{% extends 'gestao/base.html' %}
+{% block title %}Campanhas — ONG Água Azul{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 fw-bold m-0">Campanhas</h1>
+    <a href="{% url 'inicio' %}" class="btn btn-outline-secondary btn-toque px-3">Voltar</a>
+</div>
+<a href="{% url 'campanha_criar' %}" class="btn btn-primary btn-toque w-100 mb-3">➕ Nova Campanha</a>
+
+{% for c in campanhas %}
+<div class="card card-ong p-3 bg-white mb-2">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="fw-bold">{{ c.nome }}</div>
+        <span class="badge {% if c.status == 'ativa' %}bg-success{% else %}bg-secondary{% endif %}">{{ c.get_status_display }}</span>
+    </div>
+    <div class="small text-secondary mb-2">Início: {{ c.data_inicio|date:"d/m/Y" }}</div>
+    <a href="{% url 'campanha_resumo' c.pk %}" class="btn btn-outline-primary btn-toque w-100">Abrir Campanha</a>
+</div>
+{% empty %}
+<div class="card card-ong p-3 bg-white text-secondary">Nenhuma campanha cadastrada.</div>
+{% endfor %}
+{% endblock %}

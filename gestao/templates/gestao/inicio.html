@@ -1,0 +1,30 @@
+{% extends 'gestao/base.html' %}
+{% block title %}Menu Inicial — ONG Água Azul{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <h1 class="h4 fw-bold mb-1">Olá, {{ user.first_name|default:user.username }}</h1>
+    <p class="text-secondary mb-0">{{ campanhas_ativas }} campanhas ativas • {{ total_familias }} famílias cadastradas</p>
+</div>
+
+<div class="d-grid gap-3">
+    <a href="{% url 'doacao_criar' %}" class="btn btn-success btn-toque shadow-sm">
+        ➕ Registrar Doação
+    </a>
+    <a href="{% url 'familia_lista' %}" class="btn btn-outline-primary btn-toque bg-white">
+        👨‍👩‍👧‍👦 Famílias Cadastradas
+    </a>
+    <a href="{% url 'campanha_lista' %}" class="btn btn-outline-primary btn-toque bg-white">
+        📦 Campanhas de Doação
+    </a>
+</div>
+
+{% if campanha_destaque %}
+<div class="card card-ong p-3 bg-white mt-4">
+    <div class="small text-secondary fw-bold">CAMPANHA ATIVA EM DESTAQUE</div>
+    <div class="fw-bold fs-5 my-1">{{ campanha_destaque.nome }}</div>
+    <a href="{% url 'campanha_resumo' campanha_destaque.pk %}" class="btn btn-light border btn-toque mt-2">
+        Ver resumo e entregas
+    </a>
+</div>
+{% endif %}
+{% endblock %}
